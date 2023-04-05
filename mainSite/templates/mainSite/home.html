@@ -1,0 +1,36 @@
+{% extends 'mainSite/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<main>
+ 
+  {% if user.is_authenticated %}
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">НовыйСтрой</h1>
+        <p class="lead text-body-secondary">Если у вас что то случилось, оставьте заявку.</p>
+        <p>
+          <a href="#" class="btn btn-primary my-2">Оставить заявку</a>
+        </p>
+      </div>
+    </div>
+  </section>
+  {% else %}
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">НовыйСтрой</h1>
+          <p class="lead text-body-secondary">Чтобы продолжить взаимодействие с системой, необходимо авторизироваться.</p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">Вход</a>
+            <a href="#" class="btn btn-secondary my-2">Регистрация</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+  
+</main>
+{% endblock %}

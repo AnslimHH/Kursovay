@@ -1,0 +1,82 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Logistics Company{% endblock %}</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- <link href="{% static "css/base.css" %}" rel="stylesheet"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <style>
+      .card_img {
+        width: 200px;
+        height: 40px;
+      }
+      .ml {
+        margin-left: 10px;
+      }
+      footer {
+        bottom: 0;
+        width: 100%;
+      }
+      main {
+        background-color: #f8f9fa!important;
+      }
+
+
+    </style>
+     <!-- Шапка -->
+     <main class="d-flex flex-nowrap">
+      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary" style="width: 380px;">
+        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom">
+          <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+          <span class="fs-5 fw-semibold">Список заявок</span>
+        </a>
+        <div class="list-group list-group-flush border-bottom scrollarea">
+          {% if order_list %}
+          {% for el in order_list %}
+
+          <a href="{% url 'order' el.id %}" class="list-group-item list-group-item-action py-3 lh-sm {% if el.id == order.id %} active {%endif%}" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <strong class="mb-1">{{el.user}}</strong>
+              {% if el.status.id == 1 %}
+              <span class="badge text-bg-secondary rounded-pill">{{ el.status }}</span>
+              {%endif%}
+              {% if el.status.id == 2 %}
+              <span class="badge text-bg-warning rounded-pill">{{ el.status }}</span>
+              {%endif%}
+              {% if el.status.id == 3 %}
+              <span class="badge text-bg-success rounded-pill">{{ el.status }}</span>
+              {%endif%}
+            </div>
+            <div class="col-10 mb-1 small">{{el.description}}</div>
+            <small>{{ el.created }}</small>
+          </a>
+
+          {% endfor %}
+          {% else %}
+    
+            Заявок нет!
+    
+          {% endif %}
+        </div>
+      </div>
+     
+      
+      {% block content %}{% endblock %}
+     </main>
+      
+    
+
+          
+
+
+     
+
+     <!-- Подключение Bootstrap JavaScript -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  </body>
+</html>

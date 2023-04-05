@@ -1,0 +1,65 @@
+{% extends 'staffSite/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <h4 class="mb-3">Заявка пользователя {{order.user}} </h4> <a href="{% url 'delete_order' order.id %}"><button class="btn btn-danger btn-lg btn-block w-25 m-auto">Удалить?</button></a>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="row g-3">
+
+      <div class="col-sm-4">
+        <label for="firstName" class="form-label">Имя</label>
+        <input type="text" name="name" class="form-control" id="firstName" placeholder="" value="{{order.name}}" required="">
+      </div>
+
+      <div class="col-sm-4">
+        <label for="lastName" class="form-label">Фамилия</label>
+        <input type="text" name="second_name" class="form-control" id="lastName" placeholder="" value="{{order.second_name}}" required="">
+      </div>
+
+      <div class="col-sm-4">
+        <label for="lastName" class="form-label">Адрес</label>
+        <input type="text" name="address" class="form-control" id="lastName" placeholder="" value="{{order.address}}" required="">
+      </div>
+
+      <div class="col-md-6">
+        <label for="country" class="form-label">Причина</label>
+        <select class="form-select" name="order_type" id="country">
+          {% for el in order_type %}
+          <option value="{{el.id}}" {% if el == order.order_type %}selected{%endif%} >{{el.name}}</option>
+          {%endfor%}
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label for="country" class="form-label">Статус заявки</label>
+        <select class="form-select" name="status" id="country">
+          {% for el in status %}
+          <option value="{{el.id}}" {% if el == order.status %} selected {%endif%}>{{el.name}}</option>
+          {%endfor%}
+        </select>
+      </div>
+
+      <div class="col-12">
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
+          <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3">{{order.description}}</textarea>
+        </div>
+      </div>
+
+
+    <hr class="my-4">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <button class="btn btn-warning btn-lg btn-block w-50 m-auto" type="submit">Редактировать</button>
+      </div>
+      
+      
+    </form>
+    
+</div>
+
+{% endblock %}

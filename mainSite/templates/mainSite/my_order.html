@@ -1,0 +1,41 @@
+{% extends 'mainSite/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <div class="accordion" id="accordionExample">
+  {% if order %}
+  {% for el in order %}
+  {% if el.user == user.id %}
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{el.id}}" aria-expanded="true" aria-controls="{{el.id}}">
+       Заявка №{{el.id}} | Cтатус: 
+        {% if el.status == 1 %}
+        <span class="badge text-bg-secondary rounded-pill"> {%for s in status %} {% if s.id == el.status %} {{s.name}} {%endif%} {%endfor%}</span>
+        {%endif%}
+        {% if el.status == 2 %}
+        <span class="badge text-bg-warning rounded-pill"> {%for s in status %} {% if s.id == el.status %} {{s.name}} {%endif%} {%endfor%}</span>
+        {%endif%}
+        {% if el.status == 3 %}
+        <span class="badge text-bg-success rounded-pill"> {%for s in status %} {% if s.id == el.status %} {{s.name}} {%endif%} {%endfor%}</span>
+        {%endif%}
+      </button>
+    </h2>
+    <div id="{{el.id}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <strong>{%for o in order_type %} {% if o.id == el.order_type %} {{o.name}} {%endif%} {%endfor%}</strong> 
+        <p>{{el.description}}</p>
+      </div>
+    </div>
+  </div>
+  {%endif%}
+  {%endfor%}
+  {%else%}
+  <h1>Заявок нет!</h1>
+  {%endif%}
+  </div>
+</div>
+{% endblock %}

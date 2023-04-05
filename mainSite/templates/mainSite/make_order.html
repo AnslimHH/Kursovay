@@ -1,0 +1,52 @@
+{% extends 'mainSite/base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+  <h4 class="mb-3">Заявка</h4>
+  <form method="POST">  
+    {% csrf_token %}
+    <div class="row g-3">
+
+      <div class="col-sm-4">
+        <label for="firstName" class="form-label">Имя</label>
+        <input type="text" name="name" class="form-control" id="firstName" placeholder="" value="{{order.name}}" required="">
+      </div>
+
+      <div class="col-sm-4">
+        <label for="lastName" class="form-label">Фамилия</label>
+        <input type="text" name="second_name" class="form-control" id="lastName" placeholder="" value="{{order.second_name}}" required="">
+      </div>
+
+      <div class="col-sm-4">
+        <label for="lastName" class="form-label">Адрес</label>
+        <input type="text" name="address" class="form-control" id="lastName" placeholder="" value="{{order.address}}" required="">
+      </div>
+
+      <div class="col-md-6">
+        <label for="country" class="form-label">Причина</label>
+        <select class="form-select" name="order_type" id="country" required="">
+          {% if order_type %}
+          {% for el in order_type %}
+          <option value="{{el.id}}">{{el.name}}</option>
+          {%endfor%}
+          {%endif%}
+        </select>
+      </div>
+
+      <div class="col-12">
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Описание</label>
+          <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3">{{order.description}}</textarea>
+        </div>
+      </div>
+
+
+    <hr class="my-4">
+
+    <button class="btn btn-primary btn-lg btn-block w-25 m-auto" type="submit">Оформить</button>
+  </form>
+</div>
+{% endblock %}
